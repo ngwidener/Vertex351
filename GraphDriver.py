@@ -10,10 +10,15 @@ class GraphDriver:
 
 def main():
     graph = Graph()
-    input = sys.argv[1]
-    d = graph.readInputGraph(input)
+    inFile = sys.argv[1]
+    d = graph.readInputGraph(inFile)
 
-    for path in graph.dfsSearch(d, "0", "3"):
+    userInput = input("Enter a source and destination:")
+
+    dog = userInput.split(" ", -1)
+
+
+    for path in graph.dfsSearch(d, dog[0], dog[1]):
         print(path)
 
 
