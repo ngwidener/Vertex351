@@ -13,6 +13,33 @@ Vertex class also checks for cycles in our graph.
 import sys
 class Graph:
 
+    def cycle_exists(graph):
+        """
+        Will determine if there is a cycle
+        """
+        color = {u : "white" for u in graph}#all nodes are initially white
+        found_cycle = [false]#define found_cycle as a list so we can change the value
+        
+        for u in graph:#visit all the nodes in the graph
+            if color[u] == "white":#if color is white
+                dfs_visit(graph, u, color, found_cyle)#call dfs_visit
+            if found_cycle[0]:#if cycle is found
+                break #break
+        return found_cycle[0]#return the value of cycle
+        
+    def dfs_visit(graph, u, color, found_cycle):
+        if found_cycle[0]:#if cucle is found stop dfs and return cycle
+            return
+        color[u] = "gray"#gray nodes are in the current path
+        for v in graph[u]:#check neighbors of visited
+            if color[v] == "gray": #if color[v] is gray
+                found_cycle[0]#cycle found
+                return #return cycle
+            if color[v] == "white":#if color[v] is white
+                dfs_visit(graph, v, color, found_cycle)#call dfs_visit
+        color[u] = "black"#color[u] is black        
+                                        
+
     def __init__(self):
         """
         Initialize the variable used in Graph
@@ -51,13 +78,27 @@ class Graph:
         if start == end: #if the start element and end element are the same
             return [path] #return the list of paths
         if start not in graph: #if the start element is not in the graph
+            print( 'There is no path')
             return [] #return an empty list
         paths = [] #path list
         for node in graph[start]: #for node in the graph
+            """self.cycle_exists(graph)"""
             if node not in path: #if not in the path
                 newpaths = self.dfsSearch(graph, node, end, path) #new paths we found
                 for newpath in newpaths: #for each new path in the list of new paths
                     paths.append(newpath) #add the new path to our list of paths
         paths.sort() #sort our paths
+        self.cycle_exists(graph)
         return paths #return our paths
 
+    def warshall(a):
+        """
+        Define the floyd warshall algorithm
+        """
+        assert(len(row) == len(a) for row in a)
+        n = len(a)
+        for k in range(n):
+            for i in range(n):
+                for j in range(n):
+                    a[i][j] = a[i][j] or (a[i][k] and a[k][j])
+        return a            
