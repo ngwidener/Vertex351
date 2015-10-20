@@ -94,7 +94,7 @@ class Graph:
             if found_cycle[0]:#if cycle is found
                 break #break
         #print(graph)
-        print(color)
+        #print(color)
         #print(found_cycle)
         return found_cycle[0]#return the value of cycle
 
