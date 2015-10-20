@@ -35,6 +35,16 @@ class Graph:
                self.VertexList[vertex] = set([val]) #add adjacent pairs
             else:   #else
                 self.VertexList.get(vertex).add(val) #add the values
+
+
+        for i in list(self.VertexList.keys()):
+
+            for j in self.VertexList[i]:
+                if j not in self.VertexList:
+                    self.VertexList[j] = set()
+
+                    #self.VertexList.update({self.VertexList:j})
+
         return self.VertexList #return list of adjacent vertices
 
     def dfsSearch(self, graph, start, end, path = []):
@@ -63,27 +73,33 @@ class Graph:
                     paths.append(newpath) #add the new path to our list of paths
                     #self.warshall(graph)
         paths.sort() #sort our paths
-        #self.cycle_exists(graph,start, end)
+        self.cycle_exists(graph)
+        #self.warshall(graph)
 
         return paths #return our paths
 
 
-    def cycle_exists(self, graph, start, end):
+    def cycle_exists(self, graph):
         """
         Will determine if there is a cycle
         """
         color = {u : "white" for u in graph}#all nodes are initially white
         found_cycle = [False]#define found_cycle as a list so we can change the value
-
+        #print(graph)
+        #print(color)
         for u in graph:#visit all the nodes in the graph
+
             if color[u] == "white":#if color is white
                 self.dfs_visit(graph, u, color, found_cycle)#call dfs_visit
             if found_cycle[0]:#if cycle is found
                 break #break
+        #print(graph)
+        print(color)
+        #print(found_cycle)
         return found_cycle[0]#return the value of cycle
 
     def dfs_visit(self, graph, u, color, found_cycle):
-        if found_cycle[0]:#if cucle is found stop dfs and return cycle
+        if found_cycle[0]:#if cycle is found stop dfs and return cycle
             return
         color[u] = "gray"#gray nodes are in the current path
         for v in graph[u]:#check neighbors of visited
@@ -94,11 +110,12 @@ class Graph:
                 self.dfs_visit(graph, v, color, found_cycle)#call dfs_visit
         color[u] = "black"#color[u] is black
 
-    """
+
+
     def warshall(self, a):
-
+        """
         Define the floyd warshall algorithm
-
+        """
         assert(len(row) == len(a) for row in a)
         n = len(a)
         for k in range(n):
@@ -106,4 +123,4 @@ class Graph:
                 for j in range(n):
                     a[i][j] = a[i][j] or (a[i][k] and a[k][j])
         return a
-    """
+
