@@ -37,13 +37,10 @@ class Graph:
                 self.VertexList.get(vertex).add(val) #add the values
 
 
-        for i in list(self.VertexList.keys()):
-
-            for j in self.VertexList[i]:
-                if j not in self.VertexList:
-                    self.VertexList[j] = set()
-
-                    #self.VertexList.update({self.VertexList:j})
+        for i in list(self.VertexList.keys()): #for each element in the list of the vertex keys
+            for j in self.VertexList[i]: # for each vertex that's in i
+                if j not in self.VertexList: #if j is not in the vertex list
+                    self.VertexList[j] = set() #we add it to the vertex list
 
         return self.VertexList #return list of adjacent vertices
 
@@ -61,7 +58,7 @@ class Graph:
         if start == end: #if the start element and end element are the same
             return [path] #return the list of paths
         if start not in graph: #if the start element is not in the graph
-            print( 'There is no path')
+            print( 'Not Found')#prints out not found
             return [] #return an empty list
         paths = [] #path list
         for node in graph[start]: #for node in the graph
@@ -71,56 +68,35 @@ class Graph:
 
                 for newpath in newpaths: #for each new path in the list of new paths
                     paths.append(newpath) #add the new path to our list of paths
-                    #self.warshall(graph)
+
         paths.sort() #sort our paths
-        self.cycle_exists(graph)
-        #self.warshall(graph)
+
 
         return paths #return our paths
 
 
-    def cycle_exists(self, graph):
-        """
-        Will determine if there is a cycle
-        """
-        color = {u : "white" for u in graph}#all nodes are initially white
-        found_cycle = [False]#define found_cycle as a list so we can change the value
-        #print(graph)
-        #print(color)
-        for u in graph:#visit all the nodes in the graph
+    def cycle_exists(self, graph): # -graph is our graph.
+        color = { node : "white" for node in graph}  #color all nodes white to begin with
+        found_cycle = False # found_cycle set to false
 
-            if color[u] == "white":#if color is white
-                self.dfs_visit(graph, u, color, found_cycle)#call dfs_visit
-            if found_cycle[0]:#if cycle is found
-                break #break
-        #print(graph)
-        #print(color)
-        #print(found_cycle)
-        return found_cycle[0]#return the value of cycle
+        for node in graph: # for each node in graph.
+            if color[node]:#if the color[node] is white
+                self.dfs_visit(graph, node, color, found_cycle) #we call the dfs_visit method
+            if found_cycle:#if a cycle is found
+                found_cycle = True
+                break#break
+        return found_cycle #return the true or false
 
-    def dfs_visit(self, graph, u, color, found_cycle):
-        if found_cycle[0]:#if cycle is found stop dfs and return cycle
+    def dfs_visit(self,graph, node, color, found_cycle):
+        if found_cycle: # if a cycle is found return to the cycle_exists method
             return
-        color[u] = "gray"#gray nodes are in the current path
-        for v in graph[u]:#check neighbors of visited
-            if color[v] == "gray": #if color[v] is gray
-                found_cycle[0]#cycle found
-                return #return cycle
-            if color[v] == "white":#if color[v] is white
-                self.dfs_visit(graph, v, color, found_cycle)#call dfs_visit
-        color[u] = "black"#color[u] is black
+        color[node] = "gray"#else color the node gray
+        for neighbor in graph[node]: #for every neighbor in the graph of the node
+            if color[neighbor] == "gray": #If neighbor is gray
+                found_cycle = True # then a cycle exists.
+                return
+            if color[neighbor] == "white": #if the neighbor is white
+                self.dfs_visit(graph, neighbor, color, found_cycle)# call dfs_visit .
 
-
-
-    def warshall(self, a):
-        """
-        Define the floyd warshall algorithm
-        """
-        assert(len(row) == len(a) for row in a)
-        n = len(a)
-        for k in range(n):
-            for i in range(n):
-                for j in range(n):
-                    a[i][j] = a[i][j] or (a[i][k] and a[k][j])
-        return a
+        color[node] = "black"# color the original node black
 

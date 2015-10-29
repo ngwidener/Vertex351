@@ -21,7 +21,8 @@ def main():
 
     for path in graph.dfsSearch(d, dog[0], dog[1]):
         print(path)
-        #print(graph.cycle_exists(graph))
+
+
 
 
 if __name__ == '__main__':
