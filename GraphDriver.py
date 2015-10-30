@@ -1,5 +1,7 @@
+"""
 __author__ = 'Nicholas'
 __author__ = 'Trent'
+"""
 
 
 from Vertex import *
@@ -21,6 +23,10 @@ def main():
 
     for path in graph.dfsSearch(d, dog[0], dog[1]):
         print(path)
+
+    cycle = graph.cycle_exists(d)
+    print(cycle)
+
 
 
 
