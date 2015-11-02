@@ -28,6 +28,8 @@ def main():
     cycle = graph.cycle_exists(d)
     print(cycle)
 
+    warshall = graph.warshall(d)
+    print(warshall)
 
     # disconnected graph without a cycle
 

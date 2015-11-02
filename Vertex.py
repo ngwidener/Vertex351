@@ -76,31 +76,40 @@ class Graph:
 
 
 
-    def cycle_exists(self, G):  # - G is a directed graph
-        color = {u: "white" for u in G}  # - All nodes are initially white
+    def cycle_exists(self, graph):  # - G is a directed graph
+        color = {u: "white" for u in graph}  # - All nodes are initially white
         found_cycle = [False]  # - Define found_cycle as a list so we can change
         # its value per reference, see:
 
-        for u in G:  # - Visit all nodes.
+        for u in graph:  # - Visit all nodes.
             if color[u] == "white":
-                self.dfs_visit(G, u, color, found_cycle)
+                self.dfs_visit(graph, u, color, found_cycle)
             if found_cycle[0]:
                 break
         return found_cycle[0]
 
-    def dfs_visit(self, G, u, color, found_cycle):
+    def dfs_visit(self, graph, u, color, found_cycle):
         if found_cycle[0]:  # - Stop dfs if cycle is found.
             #print('cycle exists')
             return
         color[u] = "gray"  # - Gray nodes are in the current path
-        for v in G[u]:  # - Check neighbors, where G[u] is the adjacency list of u.
+        for v in graph[u]:  # - Check neighbors, where G[u] is the adjacency list of u.
             if color[v] == "gray":  # - Case where a loop in the current path is present.
                 found_cycle[0] = True
                 return
             if color[v] == "white":  # - Call dfs_visit recursively.
-                self.dfs_visit(G, v, color, found_cycle)
+                self.dfs_visit(graph, v, color, found_cycle)
         color[u] = "black"  # - Mark node as done.
 
+    def warshall(self,graph):
+
+        assert (len(row) == len(graph) for row in graph)
+        n = len(graph)
+        for k in range(n):
+            for i in range(n):
+                for j in range(n):
+                    graph[i][j] = graph[i][j] or (graph[i][k] and graph[k][j])
+        return graph
 
     """
     def readf(self, infile):
@@ -116,16 +125,16 @@ class Graph:
             return x, v
 
 
-    def find_path(self, g, start, end, path=[]):
+    def find_path(self, graph, start, end, path=[]):
         path = path + [start]
         if start == end:
             return [path]
-        if not g.has_key(start):
+        if not graph.has_key(start):
             return []
         paths = []
-        for node in g[start]:
+        for node in graph[start]:
             if node not in path:
-                newpaths = self.find_path(g, node, end, path)
+                newpaths = self.find_path(graph, node, end, path)
                 for newpath in newpaths:
                     paths.append(newpath)
         return paths
