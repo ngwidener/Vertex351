@@ -31,10 +31,12 @@ class Graph:
         file = open(inputFile, 'r')  # open the file and read it
         for line in file:  # for each element in the file
             (vertex, val) = line.split()  # vertex gets first value in the line, val gets second
+            print(vertex)
             if vertex not in self.VertexList:  # if vertex not in VertexList
                 self.VertexList[vertex] = set([val])  #add adjacent pairs
             else:  # else
                 self.VertexList.get(vertex).add(val)  #add the values
+
 
         for i in list(self.VertexList.keys()):  # for each element in the list of the vertex keys
             for j in self.VertexList[i]:  # for each vertex that's in i
@@ -55,6 +57,7 @@ class Graph:
         :param path: a list of the paths
         :return: the paths from the search
         """
+
         path = path + [start]  # path
         if start == end:  # if the start element and end element are the same
             return [path]  # return the list of paths
@@ -71,7 +74,7 @@ class Graph:
                     paths.append(newpath)  #add the new path to our list of paths
 
         paths.sort()  # sort our paths
-
+        print(self.VertexList)
         return paths  # return our paths
 
 
@@ -89,11 +92,15 @@ class Graph:
 
     def dfs_visit(self, G, u, color, found_cycle):
         if found_cycle[0]:  # - Stop dfs if cycle is found.
+            #print('cycle exists')
             return
         color[u] = "gray"  # - Gray nodes are in the current path
         for v in G[u]:  # - Check neighbors, where G[u] is the adjacency list of u.
             if color[v] == "gray":  # - Case where a loop in the current path is present.
                 found_cycle[0] = True
+
+
+
                 return
             if color[v] == "white":  # - Call dfs_visit recursively.
                 self.dfs_visit(G, v, color, found_cycle)
