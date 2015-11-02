@@ -18,6 +18,7 @@ class Graph:
         """
         self.dfsPaths = []  # list for dfsPaths
         self.VertexList = {}  # list for adjacent vertices
+        self.graph = {}
 
 
     def readInputGraph(self, inputFile):
@@ -98,3 +99,32 @@ class Graph:
                 self.dfs_visit(G, v, color, found_cycle)
         color[u] = "black"  # - Mark node as done.
 
+
+    """
+    def readf(self, infile):
+        d = {}
+        with open(infile, 'r') as f:
+            for line in f:
+                (key, val) = line.split()
+                if key in d:
+                    d[key].append(val)
+                else:
+                    d[key] = [val]
+        for x, v in d.items():
+            return x, v
+
+
+    def find_path(self, g, start, end, path=[]):
+        path = path + [start]
+        if start == end:
+            return [path]
+        if not g.has_key(start):
+            return []
+        paths = []
+        for node in g[start]:
+            if node not in path:
+                newpaths = self.find_path(g, node, end, path)
+                for newpath in newpaths:
+                    paths.append(newpath)
+        return paths
+    """

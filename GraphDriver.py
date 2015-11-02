@@ -15,6 +15,7 @@ def main():
     graph = Graph()
     inFile = sys.argv[1]
     d = graph.readInputGraph(inFile)
+    #d = graph.readf(inFile)
 
     userInput = input("Enter a source and destination:")
 
@@ -26,6 +27,9 @@ def main():
 
     cycle = graph.cycle_exists(d)
     print(cycle)
+
+
+    # disconnected graph without a cycle
 
 
 
