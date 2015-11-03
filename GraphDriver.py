@@ -16,6 +16,9 @@ def main():
     inFile = sys.argv[1]
     d = graph.readInputGraph(inFile)
     #d = graph.readf(inFile)
+    #d = graph.readGraph(inFile)
+    #print(d)
+
 
     userInput = input("Enter a source and destination:")
 
@@ -30,6 +33,8 @@ def main():
 
     warshall = graph.warshall(d)
     print(warshall)
+
+
 
     # disconnected graph without a cycle
 
