@@ -80,15 +80,15 @@ class Graph:
     def warshall(self, matrix):
         n = len(matrix) # length of the dependence matrix
 
-        #mat = matrix # set the matrix to the dependence matrix
-        matrix =  self.adjMatrix
+        mat = matrix # set the matrix to the dependence matrix
+        #matrix =  self.adjMatrix
 
         for k in range(n):
             for i in range(n):
                 for j in range(n):
-                    matrix[i][j] = matrix[i][j] or (matrix[i][k] and matrix[k][j])
+                    mat[i][j] = mat[i][j] or (mat[i][k] and mat[k][j])
 
-        self.printMatrix(matrix)
+        self.printMatrix(mat)
 
     def dfsSearch(self, graph, start, end, path=[]):
         """
