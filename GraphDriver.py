@@ -29,7 +29,7 @@ def main():
 
     dog = userInput.split(" ", -1)
 
-    print("[DFS paths]:")
+    print("[DFS paths: " + dog[0]+ "," + dog[1] +"]")
     for path in graph.dfsSearch(d, dog[0], dog[1]):
         print(path)
     print("\n")
@@ -42,23 +42,13 @@ def main():
         print("No cycle exists")
     print("\n")
 
-    #m = graph.readMatrix(inFile)
-    #print(m)
 
     print("[TC]:")
     graph.warshall(f)
+    print("\n")
 
-
-    #graph.warshall(d)
-
-
-
-
-
-    # disconnected graph without a cycle
-
-
-
+    print("[New Edge]:")
+    graph.transitive_closure(d)
 
 
 if __name__ == '__main__':

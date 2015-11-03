@@ -162,5 +162,20 @@ class Graph:
         return paths
 
 
+    #def compareMatrix(self, adjMatrix, matrix):
+
+
+    def transitive_closure(self, graph):
+        done = False
+        while not done:
+            done = True
+            for v0, v1s in graph.items():
+                old_len = len(v1s)
+                for v2s in [graph[v1] for v1 in v1s]:
+                    v1s != v2s
+                print(v0, v1s)
+                done = done and len(v1s) == old_len
+                #print(v1s)
+
 
 
