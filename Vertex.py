@@ -18,6 +18,9 @@ class Graph:
         """
         self.dfsPaths = []  # list for dfsPaths
         self.VertexList = {} # list for adjacent vertices
+        self.list1 = []
+        self.list2 = []
+        self.adjMatrix = []
 
 
     def readInputGraph(self, inputFile):
@@ -42,18 +45,37 @@ class Graph:
 
         return self.VertexList  # return list of adjacent vertices
 
-    def readGraph(self, inputFile):
-        d = {}
-        with open(inputFile, 'r') as f:
-            for line in f:
-                (key, val) = line.split()
-                if key in d:
-                    d[key].append(val)
-                else:
-                    d[key] = [val]
+    def getLists(self, inputFile):
+        #list1 = []
+        #list2 = []
+        #list3 = []
 
-        for x in d:
-            return x, d[x]
+        file = open(inputFile, 'r')
+        for line in file:
+            pair = line.split()
+            self.list1.append(pair[0])
+            self.list2.append(pair[1])
+        file.close()
+        return self.list1, self.list2
+
+
+    def matrix(self, inputFile):
+        self.getLists(inputFile)
+        n = 7
+        self.adjMatrix = [[0 for i in range(n)] for k in range(n)]
+
+        for i in range(len(self.list1)):
+            u = int(self.list1[i])
+            v = int(self.list2[i])
+            self.adjMatrix[u][v] = 1
+
+        self.printMatrix(self.adjMatrix)
+
+    def printMatrix(self, matrix):
+        for i in range(len(matrix)):
+            for k in range(len(matrix[0])):
+                print(matrix[i][k], " ", end='')
+            print('')
 
     def dfsSearch(self, graph, start, end, path=[]):
         """
@@ -113,17 +135,7 @@ class Graph:
 
     def warshall(self, graph):
 
-        assert (len(row) == len(graph) for row in graph)
-        n = len(graph)
-        for k in range(n, n-1):
-            #print(k)
-            for i in range(n, n-1):
-                #print(i)
-                for j in range(n, n-1):
-                    #print(j)
-                    graph[i][j] = graph[i][j] or (graph[i][k] and graph[k][j])
-        return graph
-
+        print(graph)
 
     def find_path(self, graph, start, end, path=[]):
         path = path + [start]

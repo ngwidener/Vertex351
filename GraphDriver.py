@@ -18,6 +18,11 @@ def main():
     #d = graph.readf(inFile)
     #d = graph.readGraph(inFile)
     #print(d)
+    #m = graph.getLists(inFile)
+    #print(m)
+
+    graph.matrix(inFile)
+
 
 
     userInput = input("Enter a source and destination:")
@@ -31,11 +36,13 @@ def main():
     cycle = graph.cycle_exists(d)
     print(cycle)
 
+    #m = graph.readMatrix(inFile)
+    #print(m)
+
     #warshall =graph.warshall(d)
     #print(warshall)
 
-    for w in graph.warshall(d):
-        print(w)
+    #graph.warshall(d)
 
 
 
