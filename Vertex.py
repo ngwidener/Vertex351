@@ -9,7 +9,7 @@ Vertex class also checks for cycles in our graph.
 """
 
 import sys
-
+from collections import defaultdict
 
 class Graph:
     def __init__(self):
@@ -17,8 +17,7 @@ class Graph:
         Initialize the variable used in Graph
         """
         self.dfsPaths = []  # list for dfsPaths
-        self.VertexList = {}  # list for adjacent vertices
-        self.graph = {}
+        self.VertexList = {} # list for adjacent vertices
 
 
     def readInputGraph(self, inputFile):
@@ -112,19 +111,18 @@ class Graph:
         color[u] = "black"  # - Mark node as done.
 
 
-    def warshall(self,graph):
-        try:
-            #assert (len(row) == len(graph) for row in graph)
-            n = len(graph)
-            for k in range(n):
-                for i in range(n):
-                    for j in range(n):
-                        graph[i][j] = graph[i][j] or (graph[i][k] and graph[k][j])
-            return graph
-        except KeyError as e:
-            print("gay" + str(e))
+    def warshall(self, graph):
 
-
+        assert (len(row) == len(graph) for row in graph)
+        n = len(graph)
+        for k in range(n, n-1):
+            #print(k)
+            for i in range(n, n-1):
+                #print(i)
+                for j in range(n, n-1):
+                    #print(j)
+                    graph[i][j] = graph[i][j] or (graph[i][k] and graph[k][j])
+        return graph
 
 
     def find_path(self, graph, start, end, path=[]):
