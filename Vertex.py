@@ -69,13 +69,26 @@ class Graph:
             v = int(self.list2[i])
             self.adjMatrix[u][v] = 1
 
-        self.printMatrix(self.adjMatrix)
+        return self.adjMatrix
 
     def printMatrix(self, matrix):
         for i in range(len(matrix)):
             for k in range(len(matrix[0])):
                 print(matrix[i][k], " ", end='')
             print('')
+
+    def warshall(self, matrix):
+        n = len(matrix) # length of the dependence matrix
+
+        #mat = matrix # set the matrix to the dependence matrix
+        matrix =  self.adjMatrix
+
+        for k in range(n):
+            for i in range(n):
+                for j in range(n):
+                    matrix[i][j] = matrix[i][j] or (matrix[i][k] and matrix[k][j])
+
+        self.printMatrix(matrix)
 
     def dfsSearch(self, graph, start, end, path=[]):
         """
@@ -133,9 +146,6 @@ class Graph:
         color[u] = "black"  # - Mark node as done.
 
 
-    def warshall(self, graph):
-
-        print(graph)
 
     def find_path(self, graph, start, end, path=[]):
         path = path + [start]

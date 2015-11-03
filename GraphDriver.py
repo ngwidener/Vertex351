@@ -21,7 +21,7 @@ def main():
     #m = graph.getLists(inFile)
     #print(m)
 
-    graph.matrix(inFile)
+    f = graph.matrix(inFile)
 
 
 
@@ -39,8 +39,8 @@ def main():
     #m = graph.readMatrix(inFile)
     #print(m)
 
-    #warshall =graph.warshall(d)
-    #print(warshall)
+    graph.warshall(f)
+
 
     #graph.warshall(d)
 
