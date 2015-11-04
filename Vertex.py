@@ -21,6 +21,7 @@ class Graph:
         self.list1 = []
         self.list2 = []
         self.adjMatrix = []
+        self.original_adj_matrix = []
 
 
     def readInputGraph(self, inputFile):
@@ -62,7 +63,7 @@ class Graph:
     def matrix(self, inputFile):
         self.getLists(inputFile)
         n = 7
-        self.adjMatrix = [[0 for i in range(n)] for k in range(n)]
+        self.adjMatrix = [[0 for v in range(n)] for u in range(n)]
 
         for i in range(len(self.list1)):
             u = int(self.list1[i])
@@ -82,19 +83,25 @@ class Graph:
                 #print(i, k)
             print('')
 
+    def compare(self, matrix):
+        mat = self.matrix(matrix)
+        #matrix = self.warshall(self.adjMatrix)
+        for i in range(len(self.adjMatrix)):
+            for j in range(len(self.adjMatrix)):
+                if self.adjMatrix[i][j] == 1 and mat[i][j] == 1:
+                    print(i, j)
+
+
     def warshall(self, matrix):
-        #print(matrix)
-        n = len(matrix) # length of the dependence matrix
-
-        mat = matrix # set the matrix to the dependence matrix
-        #matrix =  self.adjMatrix
-
+        assert (len(row) == len(matrix) for row in matrix)
+        n = len(matrix)
         for k in range(n):
             for i in range(n):
                 for j in range(n):
-                    mat[i][j] = mat[i][j] or (mat[i][k] and mat[k][j])
-                    print(i, j)
-        self.printMatrix(mat)
+                    matrix[i][j] = matrix[i][j] or (matrix[i][k] and matrix[k][j])
+        self.printMatrix(matrix)
+        return  matrix
+
 
     def dfsSearch(self, graph, start, end, path=[]):
         """
@@ -150,42 +157,4 @@ class Graph:
             if color[v] == "white":  # - Call dfs_visit recursively.
                 self.dfs_visit(graph, v, color, found_cycle)
         color[u] = "black"  # - Mark node as done.
-
-
-
-    def find_path(self, graph, start, end, path=[]):
-        path = path + [start]
-        if start == end:
-            return [path]
-        if not graph.has_key(start):
-            return []
-        paths = []
-        for node in graph[start]:
-            if node not in path:
-                newpaths = self.find_path(graph, node, end, path)
-                for newpath in newpaths:
-                    paths.append(newpath)
-        return paths
-
-
-    def compareMatrix(self, adjMatrix, matrix):
-        for i in len(adjMatrix):
-            for j in len(matrix):
-                print(adjMatrix[i][j])
-
-
-
-    def transitive_closure(self, graph):
-        done = False
-        while not done:
-            done = True
-            for v0, v1s in graph.items():
-                old_len = len(v1s)
-                for v2s in [graph[v1] for v1 in v1s]:
-                    v1s != v2s
-                print(v0, v1s)
-                done = done and len(v1s) == old_len
-                #print(v1s)
-
-
 

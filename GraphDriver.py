@@ -30,8 +30,17 @@ def main():
     dog = userInput.split(" ", -1)
 
     print("[DFS paths: " + dog[0]+ "," + dog[1] +"]")
+
+
     for path in graph.dfsSearch(d, dog[0], dog[1]):
-        print(path)
+        if dog[0].isdigit() or dog[1].isdigit():
+
+            print(path)
+
+        else:
+            print('these are not valid inputs')
+            sys.exit(0)
+
     print("\n")
 
     print("[Cycle]:")
@@ -44,11 +53,14 @@ def main():
 
 
     print("[TC]:")
-    graph.warshall(f)
+    #graph.warshall(f)
     print("\n")
 
+    #graph.compare()
     #print("[New Edge]:")
     #graph.compareMatrix(d, f)
+    graph.compare(f)
+
 
 
 if __name__ == '__main__':
