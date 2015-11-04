@@ -16,31 +16,27 @@ def main():
     graph = Graph()
     inFile = sys.argv[1]
     d = graph.readInputGraph(inFile)
-    #d = graph.readf(inFile)
-    #d = graph.readGraph(inFile)
-    #print(d)
-    #m = graph.getLists(inFile)
-    #print(m)
+
 
     f = graph.matrix(inFile)
 
-
+    graph.originalMatrix(inFile)
 
     userInput = input("Enter a source and destination:")
 
-    dog = userInput.split(" ", -1)
+    usr = userInput.split(" ", -1)
 
-    print("[DFS paths: " + dog[0]+ "," + dog[1] +"]")
+    print("[DFS paths: " + usr[0]+ "," + usr[1] +"]")
 
 
-    for path in graph.dfsSearch(d, dog[0], dog[1]):
-        if dog[0].isdigit() or dog[1].isdigit():
+    for path in graph.dfsSearch(d, usr[0], usr[1]):
+        if usr[0].isalpha() or usr[1].isalpha():
 
-            print(path)
-
-        else:
             print('these are not valid inputs')
             sys.exit(0)
+
+        else:
+            print(path)
 
     print("\n")
 
@@ -55,12 +51,12 @@ def main():
 
     print("[TC]:")
     graph.warshall(f)
+    graph.compare()
     print("\n")
 
     #graph.compare()
     #print("[New Edge]:")
     #graph.compareMatrix(d, f)
-    graph.compare()
 
 
 

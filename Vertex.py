@@ -68,11 +68,25 @@ class Graph:
         for i in range(len(self.list1)):
             u = int(self.list1[i])
             v = int(self.list2[i])
-            #print(self.list1[i] + self.list2[i])
+
 
             self.adjMatrix[u][v] = 1
-            #print(self.adjMatrix[u][v])
+
         return self.adjMatrix
+
+    def originalMatrix(self, inputFile):
+        self.getLists(inputFile)
+        n = 7
+        self.original_adj_matrix = [[0 for v in range(n)] for u in range(n)]
+
+        for i in range(len(self.list1)):
+            u = int(self.list1[i])
+            v = int(self.list2[i])
+
+
+            self.original_adj_matrix[u][v] = 1
+
+        return self.original_adj_matrix
 
     def printMatrix(self, matrix):
         for i in range(len(matrix)):
@@ -84,11 +98,9 @@ class Graph:
             print('')
 
     def compare(self):
-
-        #matrix = self.warshall(self.adjMatrix)
         for i in range(len(self.adjMatrix)):
             for j in range(len(self.adjMatrix)):
-                if self.adjMatrix[i][j] == 1:
+                if self.adjMatrix[i][j] == 1 and self.original_adj_matrix[i][j] == 0:
                     print(i, j)
 
 
@@ -99,7 +111,7 @@ class Graph:
             for i in range(n):
                 for j in range(n):
                     matrix[i][j] = matrix[i][j] or (matrix[i][k] and matrix[k][j])
-        self.printMatrix(matrix)
+
         return  matrix
 
 
