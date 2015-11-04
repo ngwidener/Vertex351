@@ -23,6 +23,46 @@ class Graph:
         self.adjMatrix = []
         self.original_adj_matrix = []
 
+    def startGraph(self, inputFile):
+        d = self.readInputGraph(inputFile)
+        f = self.matrix(inputFile)
+        userInput = input("Enter a source and destination:")
+
+        usr = userInput.split(" ", -1)
+
+        self.originalMatrix(inputFile)
+
+        print("[DFS paths: " + usr[0]+ ", " + usr[1] +"]")
+
+        self.readSourceDest(d, usr)
+
+        print("[Cycle]:")
+        cycle = self.cycle_exists(d)
+        if (cycle == True):
+            print("Cycle exists")
+
+        elif (cycle == False):
+            print("No cycle exists")
+        print("\n")
+
+
+        print("[TC]:")
+        self.warshall(f)
+        self.compare()
+        print("\n")
+
+
+    def readSourceDest(self, inFile, userInput):
+        for path in self.dfsSearch(inFile, userInput[0], userInput[1]):
+            if (userInput[0].isalpha() or userInput[1].isalpha()):
+
+                print('these are not valid inputs')
+                sys.exit(0)
+
+            else:
+                print(path)
+
+        print("\n")
 
     def readInputGraph(self, inputFile):
         """
