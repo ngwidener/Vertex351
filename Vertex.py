@@ -81,6 +81,13 @@ class Graph:
                 print(matrix[i][k], " ", end='')
                 #print(i, k)
             print('')
+        for i in self.adjMatrix:
+            for j in self.adjMatrix:
+                if matrix[i][j] == self.adjMatrix[i][j]:
+                    print(i, j)
+
+
+
 
     def warshall(self, matrix):
         #print(matrix)
@@ -93,7 +100,7 @@ class Graph:
             for i in range(n):
                 for j in range(n):
                     mat[i][j] = mat[i][j] or (mat[i][k] and mat[k][j])
-                    print(i, j)
+                    #print(i, j)
         self.printMatrix(mat)
 
     def dfsSearch(self, graph, start, end, path=[]):
