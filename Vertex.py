@@ -67,17 +67,23 @@ class Graph:
         for i in range(len(self.list1)):
             u = int(self.list1[i])
             v = int(self.list2[i])
-            self.adjMatrix[u][v] = 1
+            #print(self.list1[i] + self.list2[i])
 
+            self.adjMatrix[u][v] = 1
+            #print(self.adjMatrix[u][v])
         return self.adjMatrix
 
     def printMatrix(self, matrix):
         for i in range(len(matrix)):
+
             for k in range(len(matrix[0])):
+
                 print(matrix[i][k], " ", end='')
+                #print(i, k)
             print('')
 
     def warshall(self, matrix):
+        #print(matrix)
         n = len(matrix) # length of the dependence matrix
 
         mat = matrix # set the matrix to the dependence matrix
@@ -87,7 +93,7 @@ class Graph:
             for i in range(n):
                 for j in range(n):
                     mat[i][j] = mat[i][j] or (mat[i][k] and mat[k][j])
-
+                    print(i, j)
         self.printMatrix(mat)
 
     def dfsSearch(self, graph, start, end, path=[]):
@@ -162,7 +168,11 @@ class Graph:
         return paths
 
 
-    #def compareMatrix(self, adjMatrix, matrix):
+    def compareMatrix(self, adjMatrix, matrix):
+        for i in len(adjMatrix):
+            for j in len(matrix):
+                print(adjMatrix[i][j])
+
 
 
     def transitive_closure(self, graph):

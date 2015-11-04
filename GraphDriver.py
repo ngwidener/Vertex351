@@ -47,8 +47,8 @@ def main():
     graph.warshall(f)
     print("\n")
 
-    print("[New Edge]:")
-    graph.transitive_closure(d)
+    #print("[New Edge]:")
+    #graph.compareMatrix(d, f)
 
 
 if __name__ == '__main__':
