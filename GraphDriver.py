@@ -26,11 +26,11 @@ def main():
 
     usr = userInput.split(" ", -1)
 
-    print("[DFS paths: " + usr[0]+ "," + usr[1] +"]")
+    print("[DFS paths: " + usr[0]+ ", " + usr[1] +"]")
 
 
     for path in graph.dfsSearch(d, usr[0], usr[1]):
-        if usr[0].isalpha() or usr[1].isalpha():
+        if (usr[0].isalpha() or usr[1].isalpha()):
 
             print('these are not valid inputs')
             sys.exit(0)
@@ -43,6 +43,7 @@ def main():
     print("[Cycle]:")
     cycle = graph.cycle_exists(d)
     if (cycle == True):
+
         print("Cycle exists")
     elif (cycle == False):
         print("No cycle exists")
