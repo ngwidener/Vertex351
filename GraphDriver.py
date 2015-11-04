@@ -53,13 +53,13 @@ def main():
 
 
     print("[TC]:")
-    #graph.warshall(f)
+    graph.warshall(f)
     print("\n")
 
     #graph.compare()
     #print("[New Edge]:")
     #graph.compareMatrix(d, f)
-    graph.compare(f)
+    graph.compare()
 
 
 

@@ -83,12 +83,12 @@ class Graph:
                 #print(i, k)
             print('')
 
-    def compare(self, matrix):
-        mat = self.matrix(matrix)
+    def compare(self):
+
         #matrix = self.warshall(self.adjMatrix)
         for i in range(len(self.adjMatrix)):
             for j in range(len(self.adjMatrix)):
-                if self.adjMatrix[i][j] == 1 and mat[i][j] == 1:
+                if self.adjMatrix[i][j] == 1:
                     print(i, j)
 
 
